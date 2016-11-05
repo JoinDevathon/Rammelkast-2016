@@ -16,6 +16,7 @@ import org.devathon.contest2016.machine.cutter.Treecutter;
 import org.devathon.contest2016.machine.generator.Coalverter;
 import org.devathon.contest2016.machine.generator.Dirtgenerator;
 import org.devathon.contest2016.machine.miner.Miner;
+import org.devathon.contest2016.machine.weapons.Cannon;
 
 public class MachineManager {
 
@@ -79,6 +80,20 @@ public class MachineManager {
 		 * |C H C|
 		 */
 		MACHINES.add(new Coalverter());
+		/*
+		 * Cannon - shoots fireballs!
+		 * Uses 1 coal/fireball
+		 * 
+		 * Recipe:
+		 * C = cobble
+		 * F = furnace
+		 * B = blaze powder
+		 * L = lava bucket
+		 * |C B C|
+		 * |C F C|
+		 * |C L C|
+		 */
+		MACHINES.add(new Cannon());
 	}
 	
 	/**

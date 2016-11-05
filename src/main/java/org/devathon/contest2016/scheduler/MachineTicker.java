@@ -22,33 +22,30 @@ public class MachineTicker implements Runnable {
 				if (executionForId.containsKey(machine.getId())) {
 					executionForId.remove(machine.getId());
 				}
-				return;
-			}
-			
-			if (!loc.getChunk().isLoaded()) { // Everyone hates lag.
-				if (executionForId.containsKey(machine.getId())) {
-					executionForId.remove(machine.getId());
-				}
-				return;
-			}
-			
-			if (MachineManager.getMachineFuel(machine.getId()) <= 0) { // We're out of fuel
-				if (executionForId.containsKey(machine.getId())) {
-					executionForId.remove(machine.getId());
-				}
-				return;
-			}
-			
-			if (machine.getMachine().canContinue(loc)) {
-				if (!executionForId.containsKey(machine.getId())) {
-					executionForId.put(machine.getId(), 1);
+			} else {
+				if (!loc.getChunk().isLoaded()) { // Everyone hates lag.
+					if (executionForId.containsKey(machine.getId())) {
+						executionForId.remove(machine.getId());
+					}
 				} else {
-					executionForId.put(machine.getId(), executionForId.get(machine.getId()) + 1);
-				}
-				machine.getMachine().execute(loc);
-				if (executionForId.get(machine.getId()) >= machine.getMachine().getActionsPerFuel()) {
-					MachineManager.setMachineFuel(machine.getId(), MachineManager.getMachineFuel(machine.getId()) - 1);
-					executionForId.put(machine.getId(), 1);
+					if (MachineManager.getMachineFuel(machine.getId()) <= 0) { // We're out of fuel
+						if (executionForId.containsKey(machine.getId())) {
+							executionForId.remove(machine.getId());
+						}
+					} else {
+						if (machine.getMachine().canContinue(loc)) {
+							if (!executionForId.containsKey(machine.getId())) {
+								executionForId.put(machine.getId(), 1);
+							} else {
+								executionForId.put(machine.getId(), executionForId.get(machine.getId()) + 1);
+							}
+							machine.getMachine().execute(loc);
+							if (executionForId.get(machine.getId()) >= machine.getMachine().getActionsPerFuel()) {
+								MachineManager.setMachineFuel(machine.getId(), MachineManager.getMachineFuel(machine.getId()) - 1);
+								executionForId.put(machine.getId(), 1);
+							}
+						}
+					}
 				}
 			}
 		}
