@@ -1,4 +1,4 @@
-package org.devathon.contest2016.machine.mine;
+package org.devathon.contest2016.machine.miner;
 
 import java.util.Arrays;
 

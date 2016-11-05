@@ -6,8 +6,8 @@ import java.util.Map;
 import org.bukkit.Location;
 import org.devathon.contest2016.machine.MachineManager;
 import org.devathon.contest2016.machine.PlacedMachine;
-import org.devathon.contest2016.machine.mine.Miner;
-import org.devathon.contest2016.machine.mine.Treecutter;
+import org.devathon.contest2016.machine.cutter.Treecutter;
+import org.devathon.contest2016.machine.miner.Miner;
 
 public class MachineTicker implements Runnable {
 

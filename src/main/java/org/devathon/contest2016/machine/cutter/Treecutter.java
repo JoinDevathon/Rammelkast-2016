@@ -1,4 +1,4 @@
-package org.devathon.contest2016.machine.mine;
+package org.devathon.contest2016.machine.cutter;
 
 import java.util.Arrays;
 import java.util.Random;

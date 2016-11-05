@@ -12,9 +12,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.devathon.contest2016.DevathonPlugin;
-import org.devathon.contest2016.machine.mine.Dirtgenerator;
-import org.devathon.contest2016.machine.mine.Miner;
-import org.devathon.contest2016.machine.mine.Treecutter;
+import org.devathon.contest2016.machine.cutter.Treecutter;
+import org.devathon.contest2016.machine.generator.Dirtgenerator;
+import org.devathon.contest2016.machine.miner.Miner;
 
 public class MachineManager {
 
