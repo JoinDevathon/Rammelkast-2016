@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.devathon.contest2016.machine.Machine;
 import org.devathon.contest2016.machine.MachineManager;
+import org.devathon.contest2016.scheduler.MachineTicker;
 
 /**
  * Made for Devathon 2016 | Theme is Machines...
@@ -47,17 +48,23 @@ public class DevathonPlugin extends JavaPlugin {
     	for (Machine m : MachineManager.MACHINES) {
     		getServer().addRecipe(m.getRecipe());
     	}
+    	
+    	getServer().getScheduler().scheduleSyncRepeatingTask(this, new MachineTicker(), 200, 20);
     }
 
     @Override
     public void onDisable() {
     	// Save config
-    	try {
-			this.fileConfiguration.save(new File(this.getDataFolder(), "config.yml"));
-		} catch (IOException e) {
-			getLogger().severe("Could not save config, some machines might not be registered!");
-		}
+    	saveFileConfig();
     }
+
+	public void saveFileConfig() {
+		try {
+			this.getFileConfiguration().save(new File(this.getDataFolder(), "config.yml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static DevathonPlugin getInstance() {
 		return instance;

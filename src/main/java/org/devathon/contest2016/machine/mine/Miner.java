@@ -44,21 +44,28 @@ public class Miner implements Machine {
 	@Override
 	public void execute(Location location) {
 		Location minerLocation = location.clone();
-		Location underneath = minerLocation.clone().add(0, -1, 0);
+		Location underneath = minerLocation.clone().add(0, -2, 0);
 		if (underneath.getBlock().getType() == Material.WATER || underneath.getBlock().getType() == Material.LAVA || underneath.getBlock().getType() == Material.BEDROCK) {
 			return;
 		}
 		
+		while (underneath.getBlock().getType() == Material.AIR) {
+			underneath.add(0, -1, 0);
+		}
+		
 		Material mined = underneath.getBlock().getType();
 		underneath.getBlock().setType(Material.AIR);
-		minerLocation.getWorld().dropItemNaturally(minerLocation.clone().add(0, 0.1, 0), new ItemStack(mined)); // TODO custom drops for ores etc
+		minerLocation.getWorld().dropItemNaturally(minerLocation.clone().add(0, 1.165, 0), new ItemStack(mined)); // TODO custom drops for ores etc
 	}
 
 	@Override
 	public boolean canContinue(Location location) {
 		Location minerLocation = location.clone();
-		Location underneath = minerLocation.clone().add(0, -1, 0);
-		return !(underneath.getBlock().getType() == Material.WATER || underneath.getBlock().getType() == Material.LAVA || underneath.getBlock().getType() == Material.BEDROCK);
+		Location underneath = minerLocation.clone().add(0, -2, 0);
+		while (underneath.getBlock().getType() == Material.AIR) {
+			underneath.add(0, -1, 0);
+		}
+		return !(underneath.getBlock().getType() == Material.WATER || underneath.getBlock().getType() == Material.LAVA || underneath.getBlock().getType() == Material.BEDROCK) && !(location.getBlock().getType() == Material.WATER || location.getBlock().getType() == Material.LAVA || location.getBlock().getType() == Material.BEDROCK);
 	}
 
 	@Override
