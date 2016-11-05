@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -45,6 +46,9 @@ public class EventListener implements Listener {
 			return;
 		}
 		MachineManager.removeMachine(machine.getId());
+		e.setCancelled(true);
+		e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), machine.getMachine().getInventoryItem()); // Drop the machine instead of a vanilla item
+		e.getBlock().setType(Material.AIR);
 		p.sendMessage(ChatColor.GRAY + "Machine removed!");
 	}
 	

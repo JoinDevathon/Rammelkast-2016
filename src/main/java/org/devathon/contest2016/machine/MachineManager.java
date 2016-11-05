@@ -13,6 +13,7 @@ import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.devathon.contest2016.DevathonPlugin;
 import org.devathon.contest2016.machine.cutter.Treecutter;
+import org.devathon.contest2016.machine.generator.Coalverter;
 import org.devathon.contest2016.machine.generator.Dirtgenerator;
 import org.devathon.contest2016.machine.miner.Miner;
 
@@ -64,6 +65,20 @@ public class MachineManager {
 		 * |C F C|
 		 */
 		MACHINES.add(new Treecutter());
+		/*
+		 * Coalverter - converts coal into charcoal
+		 * Uses 1 coal/2 charcoal
+		 * 
+		 * Recipe:
+		 * F = furnace
+		 * C = cobble
+		 * H = hopper
+		 * D = diaond
+		 * |C H C|
+		 * |F D F|
+		 * |C H C|
+		 */
+		MACHINES.add(new Coalverter());
 	}
 	
 	/**
