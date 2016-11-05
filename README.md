@@ -1,8 +1,15 @@
 # SimpleMachines
 This is a project i made for Devathon 2016, it features a couple of standard machines, but you can add machines yourself!
 
+You can only get the machines by crafting, so no shady or hard commands.
+The crafting recipies are located in MachineManager.java, in static {}. That's also where the machines are explained.
+
 Just add SimpleMachines as an API create a class that implements Machine, use MachineManager.registerMachine(), register the recipe (machine.getRecipe()) and you're done!
 Ofcourse, you can also modify the source which is easier and works better :P.
+
+
+---
+
 
 # Devathon Project
 This is the base layout for your Devathon Project. It includes several scripts to make running incredibly easy on Windows, Mac, and Linux.

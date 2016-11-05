@@ -12,6 +12,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.devathon.contest2016.DevathonPlugin;
+import org.devathon.contest2016.machine.mine.Dirtgenerator;
 import org.devathon.contest2016.machine.mine.Miner;
 import org.devathon.contest2016.machine.mine.Treecutter;
 
@@ -34,6 +35,20 @@ public class MachineManager {
 		 * |I P I|
 		 */
 		MACHINES.add(new Miner());
+		/*
+		 * Dirt generator - generates dirt
+		 * Uses 1 coal/dirt
+		 * 
+		 * Recipe:
+		 * H = hopper
+		 * C = cobble
+		 * D = dirt
+		 * F = furnace
+		 * |C H C|
+		 * |C F C|
+		 * |C D C|
+		 */
+		MACHINES.add(new Dirtgenerator());
 		/*
 		 * Treecutter - cuts tress above (max. 7 blocks)
 		 * Uses 1 coal/5 logs
