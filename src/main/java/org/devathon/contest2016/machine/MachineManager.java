@@ -51,8 +51,12 @@ public class MachineManager {
 		MACHINES.add(new Treecutter());
 	}
 	
-	public static void registerMachine(Machine m) {
-		
+	/**
+	 * Register a custom machine
+	 * @param machine
+	 */
+	public static void registerMachine(Machine machine) {
+		MACHINES.add(machine);
 	}
 	
 	public static Machine getMachineByClassname(String className) {

@@ -46,17 +46,9 @@ public class MachineTicker implements Runnable {
 					executionForId.put(machine.getId(), executionForId.get(machine.getId()) + 1);
 				}
 				machine.getMachine().execute(loc);
-				// Had to hardcode this :S
-				if (machine.getMachine() instanceof Miner) {
-					if (executionForId.get(machine.getId()) >= 10) {
-						MachineManager.setMachineFuel(machine.getId(), MachineManager.getMachineFuel(machine.getId()) - 1);
-						executionForId.put(machine.getId(), 1);
-					}
-				} else if (machine.getMachine() instanceof Treecutter) {
-					if (executionForId.get(machine.getId()) >= 5) {
-						MachineManager.setMachineFuel(machine.getId(), MachineManager.getMachineFuel(machine.getId()) - 1);
-						executionForId.put(machine.getId(), 1);
-					}
+				if (executionForId.get(machine.getId()) >= machine.getMachine().getActionsPerFuel()) {
+					MachineManager.setMachineFuel(machine.getId(), MachineManager.getMachineFuel(machine.getId()) - 1);
+					executionForId.put(machine.getId(), 1);
 				}
 			}
 		}

@@ -86,4 +86,9 @@ public class Treecutter implements Machine {
 		return recipe;
 	}
 
+	@Override
+	public int getActionsPerFuel() {
+		return 5;
+	}
+
 }
