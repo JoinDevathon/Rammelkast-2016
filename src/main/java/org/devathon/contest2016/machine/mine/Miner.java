@@ -54,8 +54,9 @@ public class Miner implements Machine {
 		}
 		
 		Material mined = underneath.getBlock().getType();
+		byte data = underneath.getBlock().getData();
 		underneath.getBlock().setType(Material.AIR);
-		minerLocation.getWorld().dropItemNaturally(minerLocation.clone().add(0, 1.165, 0), new ItemStack(mined)); // TODO custom drops for ores etc
+		minerLocation.getWorld().dropItemNaturally(minerLocation.clone().add(0, 1.165, 0), new ItemStack(mined, 1, data)); // TODO custom drops for ores etc
 	}
 
 	@Override

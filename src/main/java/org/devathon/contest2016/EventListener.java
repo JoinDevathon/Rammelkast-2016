@@ -50,7 +50,7 @@ public class EventListener implements Listener {
 	
 	@EventHandler(priority=EventPriority.LOWEST)
 	public void onInteractBlock(PlayerInteractEvent e) {
-		if (e.getAction() != Action.RIGHT_CLICK_BLOCK || e.getClickedBlock() == null) {
+		if (e.getAction() != Action.RIGHT_CLICK_BLOCK || e.getClickedBlock() == null || e.getPlayer().isSneaking()) {
 			return;
 		}
 		PlacedMachine machine = MachineManager.getMachineAtLocation(e.getClickedBlock().getLocation());

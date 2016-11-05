@@ -13,6 +13,7 @@ import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.devathon.contest2016.DevathonPlugin;
 import org.devathon.contest2016.machine.mine.Miner;
+import org.devathon.contest2016.machine.mine.Treecutter;
 
 public class MachineManager {
 
@@ -33,6 +34,25 @@ public class MachineManager {
 		 * |I P I|
 		 */
 		MACHINES.add(new Miner());
+		/*
+		 * Treecutter - cuts tress above (max. 7 blocks)
+		 * Uses 1 coal/5 logs
+		 * 
+		 * Recipe:
+		 * W = wood
+		 * C = cobble
+		 * A = diamond axe
+		 * P = piston
+		 * F = furnace
+		 * |W A W|
+		 * |C P C|
+		 * |C F C|
+		 */
+		MACHINES.add(new Treecutter());
+	}
+	
+	public static void registerMachine(Machine m) {
+		
 	}
 	
 	public static Machine getMachineByClassname(String className) {
