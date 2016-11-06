@@ -81,7 +81,7 @@ public class Miner implements Machine {
 		while (underneath.getBlock().getType() == Material.AIR) {
 			underneath.add(0, -1, 0);
 		}
-		return !(underneath.getBlock().getType() == Material.WATER || underneath.getBlock().getType() == Material.LAVA || underneath.getBlock().getType() == Material.BEDROCK) && !(location.getBlock().getType() == Material.WATER || location.getBlock().getType() == Material.LAVA || location.getBlock().getType() == Material.BEDROCK);
+		return !(underneath.getBlock().getType() == Material.WATER || underneath.getBlock().getType() == Material.LAVA || underneath.getBlock().getType() == Material.BEDROCK) || !(location.getBlock().getType() == Material.WATER || location.getBlock().getType() == Material.LAVA || location.getBlock().getType() == Material.BEDROCK);
 	}
 
 	@Override
