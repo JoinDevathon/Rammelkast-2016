@@ -1,10 +1,12 @@
 package org.devathon.contest2016.machine.miner;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Chest;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
@@ -56,7 +58,20 @@ public class Miner implements Machine {
 		Material mined = underneath.getBlock().getType();
 		byte data = underneath.getBlock().getData();
 		underneath.getBlock().setType(Material.AIR);
+		if (hasChest(minerLocation)) {
+			Chest chest = (Chest) minerLocation.getBlock().getState();
+			HashMap<Integer, ItemStack> slotsOpen = new HashMap<Integer, ItemStack>();
+            slotsOpen.putAll(chest.getBlockInventory().addItem(new ItemStack(mined, 1, data)));
+            if (!slotsOpen.isEmpty()) {
+            	minerLocation.getWorld().dropItemNaturally(minerLocation.clone().add(0, 1.165, 0), new ItemStack(mined, 1, data)); // TODO custom drops for ores etc
+            }
+			return;
+		}
 		minerLocation.getWorld().dropItemNaturally(minerLocation.clone().add(0, 1.165, 0), new ItemStack(mined, 1, data)); // TODO custom drops for ores etc
+	}
+
+	private boolean hasChest(Location minerLocation) {
+		return minerLocation.add(0, 1, 0).getBlock().getType() == Material.CHEST;
 	}
 
 	@Override
