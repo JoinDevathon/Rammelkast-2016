@@ -12,6 +12,7 @@ public class Utils {
 			if (i != null && i.getType() != null) {
 				if (i.getType() == Material.COAL) {
 					coal += i.getAmount();
+					inventory.remove(i);
 				}
 			}
 		}

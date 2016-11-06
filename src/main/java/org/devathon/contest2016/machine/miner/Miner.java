@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
@@ -47,16 +48,18 @@ public class Miner implements Machine {
 	public void execute(Location location) {
 		Location minerLocation = location.clone();
 		Location underneath = minerLocation.clone().add(0, -2, 0);
-		if (underneath.getBlock().getType() == Material.WATER || underneath.getBlock().getType() == Material.LAVA || underneath.getBlock().getType() == Material.BEDROCK) {
-			return;
-		}
 		
 		while (underneath.getBlock().getType() == Material.AIR) {
 			underneath.add(0, -1, 0);
 		}
 		
+		if (underneath.getBlock().getType() == Material.WATER || underneath.getBlock().getType() == Material.LAVA || underneath.getBlock().getType() == Material.STATIONARY_WATER || underneath.getBlock().getType() == Material.STATIONARY_LAVA || underneath.getBlock().getType() == Material.BEDROCK) {
+			return;
+		}
+		
 		Material mined = underneath.getBlock().getType();
 		byte data = underneath.getBlock().getData();
+		underneath.getWorld().playEffect(underneath, Effect.STEP_SOUND, underneath.getBlock().getTypeId());
 		underneath.getBlock().setType(Material.AIR);
 		if (hasChest(minerLocation)) {
 			Chest chest = (Chest) minerLocation.getBlock().getState();
@@ -78,10 +81,16 @@ public class Miner implements Machine {
 	public boolean canContinue(Location location) {
 		Location minerLocation = location.clone();
 		Location underneath = minerLocation.clone().add(0, -2, 0);
+		
 		while (underneath.getBlock().getType() == Material.AIR) {
 			underneath.add(0, -1, 0);
 		}
-		return !(underneath.getBlock().getType() == Material.WATER || underneath.getBlock().getType() == Material.LAVA || underneath.getBlock().getType() == Material.BEDROCK) || !(location.getBlock().getType() == Material.WATER || location.getBlock().getType() == Material.LAVA || location.getBlock().getType() == Material.BEDROCK);
+		
+		if (underneath.getBlock().getType() == Material.WATER || underneath.getBlock().getType() == Material.LAVA || underneath.getBlock().getType() == Material.STATIONARY_WATER || underneath.getBlock().getType() == Material.STATIONARY_LAVA || underneath.getBlock().getType() == Material.BEDROCK) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.devathon.contest2016.machine.Machine;
 import org.devathon.contest2016.machine.MachineManager;
 import org.devathon.contest2016.machine.PlacedMachine;
@@ -62,12 +63,12 @@ public class EventListener implements Listener {
 			return;
 		}
 		e.setCancelled(true);
-		e.getPlayer().openInventory(Bukkit.createInventory(null, 9, ChatColor.RED + "Machine fuel manager " + ChatColor.GRAY + "[" + machine.getId() + "]"));
+		e.getPlayer().openInventory(Bukkit.createInventory(null, 9, ChatColor.RED + "Machine fuel input (" + MachineManager.getMachineFuel(machine.getId()) + "F) " + ChatColor.GRAY + "[" + machine.getId() + "]"));
 	}
 	
 	@EventHandler(priority=EventPriority.LOWEST)
-	public void onInteractBlock(InventoryCloseEvent e) {
-		if (!e.getInventory().getName().startsWith(ChatColor.RED + "Machine fuel manager " + ChatColor.GRAY + "[")) {
+	public void onInventoryClose(InventoryCloseEvent e) {
+		if (!e.getInventory().getName().startsWith(ChatColor.RED + "Machine fuel input ")) {
 			return;
 		}
 		Pattern p = Pattern.compile("\\[.*?\\]");
@@ -77,6 +78,9 @@ public class EventListener implements Listener {
 		}
 		int machineId = Integer.parseInt(m.group().substring(1, m.group().length() - 1));
 		int amountOfCoal = Utils.calculateCoal(e.getInventory());
+		for (ItemStack i : e.getInventory().getContents()) {
+			if (i != null) e.getPlayer().getLocation().getWorld().dropItemNaturally(MachineManager.getMachineLocation(machineId), i);
+		}
 		MachineManager.setMachineFuel(machineId, MachineManager.getMachineFuel(machineId) + amountOfCoal);
 	}
 	
